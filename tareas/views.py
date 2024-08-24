@@ -13,5 +13,9 @@ def crearTarea(request):
     return render(request,'crearTarea.html',{'form':form})
 
 def listarTareas(request):
-    tareas = Tarea.objects.all()
+    estado = request.GET.get('estado')
+    if estado:
+        tareas = Tarea.objects.filter(estado=estado)
+    else:
+        tareas = Tarea.objects.all()
     return render(request,'listarTareas.html',{'tareas':tareas})
